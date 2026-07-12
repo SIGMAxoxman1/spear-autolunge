@@ -3,7 +3,7 @@
 	"id": "swapfix",
 	"version": "${version}",
 	"name": "Swap Fix",
-	"description": "بيحل مشكلة التأخير في تبديل السلوتات أثناء ضغطة سلوت 8 المطولة",
+	"description": "Automatically swaps to a configured hotbar slot on left click, then swaps back.",
 	"authors": [
 		"AhmedGER"
 	],

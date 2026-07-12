@@ -12,7 +12,7 @@ public class SwapFixConfigScreen extends Screen {
     private EditBox returnSlotBox;
 
     protected SwapFixConfigScreen(Screen parent) {
-        super(Component.literal("Swap Fix - الإعدادات"));
+        super(Component.literal("Swap Fix Settings"));
         this.parent = parent;
     }
 
@@ -23,19 +23,19 @@ public class SwapFixConfigScreen extends Screen {
         int centerX = this.width / 2;
         int boxWidth = 60;
 
-        aspectSlotBox = new EditBox(this.font, centerX - boxWidth - 10, 80, boxWidth, 20,
+        aspectSlotBox = new EditBox(this.font, centerX - boxWidth - 10, 95, boxWidth, 20,
                 Component.literal("Aspect Slot"));
         aspectSlotBox.setValue(String.valueOf(config.aspectSlot));
         aspectSlotBox.setMaxLength(1);
         this.addRenderableWidget(aspectSlotBox);
 
-        returnSlotBox = new EditBox(this.font, centerX + 10, 80, boxWidth, 20,
+        returnSlotBox = new EditBox(this.font, centerX + 10, 95, boxWidth, 20,
                 Component.literal("Return Slot"));
         returnSlotBox.setValue(String.valueOf(config.returnSlot));
         returnSlotBox.setMaxLength(1);
         this.addRenderableWidget(returnSlotBox);
 
-        this.addRenderableWidget(Button.builder(Component.literal("حفظ وإغلاق"), button -> {
+        this.addRenderableWidget(Button.builder(Component.literal("Save and Close"), button -> {
             saveAndClose();
         }).bounds(centerX - 100, this.height - 40, 200, 20).build());
     }
@@ -55,7 +55,7 @@ public class SwapFixConfigScreen extends Screen {
                 return value;
             }
         } catch (NumberFormatException ignored) {
-            // نتجاهل ونرجع القيمة القديمة لو الرقم مش صحيح
+            // keep the old value if the typed number isn't valid
         }
         return fallback;
     }
@@ -70,7 +70,18 @@ public class SwapFixConfigScreen extends Screen {
     @Override
     public void render(net.minecraft.client.gui.GuiGraphics guiGraphics, int mouseX, int mouseY, float partialTick) {
         super.render(guiGraphics, mouseX, mouseY, partialTick);
-        guiGraphics.drawCenteredString(this.font, "رقم سلوت الاسبير", this.width / 2 - 100, 65, 0xFFFFFF);
-        guiGraphics.drawCenteredString(this.font, "رقم السلوت اللي ترجعله", this.width / 2 + 100, 65, 0xFFFFFF);
+
+        int centerX = this.width / 2;
+
+        guiGraphics.drawCenteredString(this.font,
+                "Which hotbar slot has your Aspect sword?", centerX, 40, 0xFFFFFF);
+        guiGraphics.drawCenteredString(this.font,
+                "Which hotbar slot should you return to after the hit?", centerX, 52, 0xFFFFFF);
+
+        guiGraphics.drawCenteredString(this.font, "Aspect slot (1-9)", centerX - 70, 82, 0xAAAAAA);
+        guiGraphics.drawCenteredString(this.font, "Return slot (1-9)", centerX + 70, 82, 0xAAAAAA);
+
+        guiGraphics.drawCenteredString(this.font,
+                "Example: Aspect = 9, Return = 8", centerX, 120, 0x55FF55);
     }
 }
